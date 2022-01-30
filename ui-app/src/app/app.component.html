@@ -1,0 +1,30 @@
+<div class="content">
+  <!-- Toolbar -->
+<div class="toolbar" role="banner">
+  &nbsp;&nbsp;
+  <span>Fantasy League</span>
+  <div class="spacer"></div>
+  <span>Username:&nbsp;</span><span> {{userInContext.userName}}</span>
+  <button (click)="logout()">Logout&nbsp;</button>
+</div>
+
+<div *ngIf = "isUserLogin()">
+
+    <ul class="nav nav-tabs nav-justified">
+      <li class="nav-item">
+        <a class="nav-link" active [routerLink]="['/']">Match</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/sportTeam']">Sport Teams</a>
+      </li>
+    </ul>
+  
+  <!-- Footer -->
+  <footer>
+
+  </footer>
+</div>
+<router-outlet></router-outlet>  
+</div>
+
+

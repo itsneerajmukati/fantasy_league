@@ -1,0 +1,12 @@
+<br/>
+<br/>
+<div class="container">
+    <div class="card" style="text-align:center" *ngFor="let match of matchList" [routerLink]="['/matchDetail']" [state]="match">
+      <div class="card-body">
+        <h4 class="card-title">{{match.team1.name}}</h4>
+        <p class="card-text">vs</p>
+        <h4 class="card-title">{{match.team2.name}}</h4>
+        <p class="card-text">Venue: {{match.venue}}</p>
+      </div>
+    </div>
+</div>

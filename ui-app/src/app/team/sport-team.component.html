@@ -1,0 +1,41 @@
+<br/>
+<br/>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Venue</span>
+      </div>
+    <input type="text" [(ngModel)]="venue" class="form-control"> &nbsp;
+    <div class="input-group-append">
+        <button class="btn btn-sm btn-success" (click)="createMatch()">Create Match</button>
+    </div>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Team Name</span>
+      </div>
+    <input type="text" [(ngModel)]="teamName" class="form-control"> &nbsp;
+    <div class="input-group-prepend">
+        <span class="input-group-text">Team Code</span>
+      </div>
+    <input type="text" [(ngModel)]="teamCode" class="form-control"> &nbsp;
+    <button class="btn btn-sm btn-success" (click)="addTeam()">Add Team</button>
+</div>
+
+<br/>
+<br/>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Team Name</td>
+            <td>Code</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let team of teamList; let i=index;" [routerLink]="['/team-detail', team.id]">
+            <td><input type="checkbox" value="team.id" (change)="selectTeam(team, $event)"></td>
+            <td>{{team.name}}</td>
+            <td>{{team.code}}</td>
+        </tr>
+    </tbody>
+</table>

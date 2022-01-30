@@ -1,0 +1,61 @@
+<button class="btn btn-sm btn-primary" (click)="updateUserTeamPlayerPoints()">Update Players Points</button> &nbsp;
+<button class="btn btn-sm btn-primary" (click)="updateUserTeamPoints()">Update Team Points</button> &nbsp;
+<br/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Point</th>
+                    <th>Action</th>
+                </tr>
+                <tbody>
+                    <tr *ngFor="let playerMatchPoint of playerMatchPointList">
+                        <td>{{playerMatchPoint.player.name}}</td>
+                        <td>{{playerMatchPoint.points}}</td>
+                        <td>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input"
+                                        (change)="selectSBatsman(playerMatchPoint.player, $event)">Batsman 1
+                                    <input type="checkbox" class="form-check-input"
+                                        (change)="selectNBatsman(playerMatchPoint.player, $event)">Batsman 2
+                                    <input type="checkbox" class="form-check-input"
+                                        (change)="selectBowler(playerMatchPoint.player, $event)">Bowler
+                                    <input type="checkbox" class="form-check-input"
+                                        (change)="selectFielder(playerMatchPoint.player, $event)">Fielder
+                                    <input type="checkbox" class="form-check-input"
+                                        (change)="selectWk(playerMatchPoint.player, $event)">Wk
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <p><b>Strike Batsman:</b> {{this.strikeBatsman.name}}</p>
+            <p><b>No Strike Batsman:</b> {{this.nonStrikeBatsman.name}}</p>
+            <p><b>Bolwer:</b> {{this.bowler.name}}</p>
+            <p><b>Wicket Keeper:</b> {{this.wk.name}}</p>
+            <p><b>Fielder:</b> {{this.fielder.name}}</p>
+            <br/>
+            <div class="form-group">
+                <span>Run</span>
+                <input class="form-control" type="text" name="run" [(ngModel)]=run placeholder="Run" />
+                <label for="sel1">Select Wicket:</label>
+                <select class="form-control" id="sel1" [(ngModel)]=wicket>
+                    <option>Please Select</option>
+                    <option>BOLD</option>
+                    <option>CATCH</option>
+                    <option>RUNOUT</option>
+                    <option>LBW</option>
+                </select>
+                <br/>
+                <button class="btn btn-sm btn-primary" (click)="saveScore()">Save</button>
+
+            </div>
+        </div>
+    </div>
+</div>

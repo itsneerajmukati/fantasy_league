@@ -1,0 +1,38 @@
+<h2>Create Team</h2>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Team Name</span> 
+  </div>
+  <input type="text" [(ngModel)]="teamName" class="form-control"> &nbsp;
+  <div class="input-group-append">
+    <button (click)="createTeam()" class="btn btn-sm btn-success">Create Team</button>
+  </div>
+</div>
+
+<br/>
+<div><b>Selected Player:</b> {{selectedPlayers.length}}</div>
+<br/>
+<div class="card" *ngFor="let player of match.team1.players;">
+    <div class="card-body">
+      <h4 class="card-title" role="button" style="position:absolute;display:flex" selected="false" (click)="selectPlayer(player, $event)">{{player.name}}</h4>
+            <div class="d-flex flex-row-reverse">
+      <div class="p-2 rounded-circle" role="button" selected="false" style="width: 50px;height: 45px;background-color: yellow;text-align:center" (click)="selectCaptain(player.id,$event)">C</div> 
+	  <div class="p-2 rounded-circle" role="button" selected="false" style="width: 50px;height: 45px;background-color: yellow;text-align:center" (click)="selectViceCaptain(player.id,$event)">VC</div>
+      </div>
+      <p class="card-text">{{match.team1.name}}</p>
+      <p class="card-text">{{player.type}}</p>
+      <p class="card-text">{{player.point}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let player of match.team2.players;">
+    <div class="card-body">
+      <h4 class="card-title" role="button" style="position:absolute;display:flex" selected="false" (click)="selectPlayer(player, $event)">{{player.name}}</h4>
+            <div class="d-flex flex-row-reverse">
+      <div class="p-2 rounded-circle" role="button" selected="false" style="width: 50px;height: 45px;background-color: yellow;text-align:center" (click)="selectCaptain(player.id,$event)">C</div> 
+	  <div class="p-2 rounded-circle" role="button" selected="false" style="width: 50px;height: 45px;background-color: yellow;text-align:center" (click)="selectViceCaptain(player.id,$event)">VC</div>
+      </div>
+      <p class="card-text">{{match.team2.name}}</p>
+      <p class="card-text">{{player.type}}</p>
+      <p class="card-text">{{player.point}}</p>
+    </div>
+  </div>

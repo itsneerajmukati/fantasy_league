@@ -1,0 +1,16 @@
+<br/>
+<ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" active (click)="showContest()">Contest</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="showPlayer()">Player</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="showScore()">Score</a>
+    </li>
+</ul>
+<router-outlet></router-outlet>
+<app-contest-list [matchIdFromRoute] = match.id *ngIf="isContest"></app-contest-list>
+<app-match-player *ngIf="isPlayer" [match]=match></app-match-player>
+<app-score-board *ngIf="isScore" [match]=match></app-score-board>

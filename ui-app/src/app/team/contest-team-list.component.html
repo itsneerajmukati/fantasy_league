@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="card" style="text-align:center" *ngFor="let contestTeam of contestTeamList;">
+      <div class="card-body">
+        <h4 class="card-title" selected="false">{{contestTeam.userTeam.name}}</h4>
+        <p class="card-text">Points: {{contestTeam.userTeam.points}}</p>
+        <p class="card-text">Rank: {{contestTeam.rank}}</p>
+      </div>
+    </div>
+</div>
