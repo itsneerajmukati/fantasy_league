@@ -13,15 +13,15 @@ export class ContestService {
   constructor(private http: HttpClient) { }
 
   getContestList(matchId: number) {
-    return this.http.get<Contest[]>("http://localhost:9000/match-service/contest/find-by-match?matchId=" + matchId);
+    return this.http.get<Contest[]>("http://localhost:30081/match-service/contest/find-by-match?matchId=" + matchId);
   }
 
   getContestTeamList(contestId: number) {
-    return this.http.get<ContestTeam[]>("http://localhost:9000/match-service/contest/find-by-contest?contestId="+contestId);
+    return this.http.get<ContestTeam[]>("http://localhost:30081/match-service/contest/find-by-contest?contestId="+contestId);
   }
 
   updateRanks(contestId : number) {
-    return this.http.get<string>("http://localhost:9000/match-service/contest/update-rank?contestId="+contestId);
+    return this.http.get<string>("http://localhost:30081/match-service/contest/update-rank?contestId="+contestId);
   }
 
 
@@ -32,7 +32,7 @@ export class ContestService {
     };
     httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json');
 
-    return this.http.post<Contest>("http://localhost:9000/match-service/contest/create", contest, httpOptions)
+    return this.http.post<Contest>("http://localhost:30081/match-service/contest/create", contest, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -44,7 +44,7 @@ export class ContestService {
     };
     httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json');
 
-    return this.http.post<Contest>("http://localhost:9000/match-service/contest/join-contest", contestTeam, httpOptions)
+    return this.http.post<Contest>("http://localhost:30081/match-service/contest/join-contest", contestTeam, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

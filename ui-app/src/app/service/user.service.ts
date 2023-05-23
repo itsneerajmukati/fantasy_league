@@ -21,7 +21,7 @@ export class UserService {
          'Authorization':'Bearer ' + localStorage.getItem("auth_token")
       })
     };
-    return this.http.get<User>("http://localhost:9000/user-service/user/user-in-context",httpOptions)
+    return this.http.get<User>("http://localhost:30081/user-service/user/user-in-context",httpOptions)
     .pipe(
       catchError(this.handleError)
     );
@@ -34,7 +34,7 @@ export class UserService {
       })
     };
     let data = {"username":username,"password":password};
-    return this.http.post<AuthResponse>("http://localhost:9000/user-service/user/authenticate", data, httpOptions).toPromise();
+    return this.http.post<AuthResponse>("http://localhost:30081/user-service/user/authenticate", data, httpOptions).toPromise();
 
   }
 
@@ -59,7 +59,7 @@ export class UserService {
     };
     httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json');
 
-    return this.http.post<User>("http://localhost:9000/user-service/user/create", user, httpOptions)
+    return this.http.post<User>("http://localhost:30081/user-service/user/create", user, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

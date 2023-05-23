@@ -22,8 +22,8 @@
 			<groupId>com.nm</groupId>
 			<artifactId>common-pojo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>D:\DemoProjects\fantasy_league\common-pojo\target\common-pojo-0.0.1-SNAPSHOT.jar</systemPath>
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${pom.basedir}/../common-pojo/target/common-pojo-0.0.1-SNAPSHOT.jar</systemPath>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,14 +43,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
@@ -66,8 +58,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>

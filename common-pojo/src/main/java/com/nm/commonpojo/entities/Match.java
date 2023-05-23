@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.nm.commonpojo.view.Views;
 
 @Entity
-@Table(name = "match")
+@Table(name = "sport_match")
 public class Match {
 
     @Id

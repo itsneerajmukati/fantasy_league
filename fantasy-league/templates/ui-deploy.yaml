@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-deploy 
+  labels:
+    appName: ui-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: ui-svc
+  template:
+    metadata:
+      labels:
+        serviceName: ui-svc
+    spec:
+      securityContext:
+      containers:
+        - name: ui 
+          securityContext:
+          image: "{{ .Values.ui.image.name }}:{{ .Values.ui.image.tag}}"
+          command: [ "nginx", "-g", "daemon off;" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.ui.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.ui.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

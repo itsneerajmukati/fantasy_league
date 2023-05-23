@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deploy 
+  labels:
+    appName: api-gateway-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: api-gateway-svc
+  template:
+    metadata:
+      labels:
+        serviceName: api-gateway-svc
+    spec:
+      securityContext:
+      containers:
+        - name: api-gateway 
+          securityContext:
+          image: "{{ .Values.apiGateway.image.name }}:{{ .Values.apiGateway.image.tag}}"
+          command: ["java", "-jar", "/app/app.jar", "--spring.config.location=/app/config/api-gateway.properties" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.apiGateway.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.apiGateway.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: api-gateway-properties-configmap

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: team-svc 
+  labels:
+    serviceName: team-svc 
+spec:
+  type: {{ .Values.service.team.type }}
+  ports:
+    - port: {{ .Values.service.team.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    serviceName: team-svc 

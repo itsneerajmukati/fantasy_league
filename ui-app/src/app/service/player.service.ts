@@ -13,7 +13,7 @@ export class PlayerService {
   constructor(private http: HttpClient) { }
 
   getPlayerListByTeamId(teamId : number) {
-    return this.http.get<Players[]>("http://localhost:9000/player-service/player/find-by-team-id?teamId="+teamId);
+    return this.http.get<Players[]>("http://localhost:30081/player-service/player/find-by-team-id?teamId="+teamId);
   }
 
   savePlayer(player : Players) {
@@ -22,7 +22,7 @@ export class PlayerService {
         'Content-Type':'application/json'
       })
     };
-    return this.http.post<Players>("http://localhost:9000/player-service/player/create", player, httpOptions)
+    return this.http.post<Players>("http://localhost:30081/player-service/player/create", player, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -49,10 +49,10 @@ export class PlayerService {
         'Content-Type':'application/json'
       })
     };
-    return this.http.post<string>("http://localhost:9000/player-service/score/playing-eleven-point", playingEleven, httpOptions)
+    return this.http.post<string>("http://localhost:30081/player-service/score/playing-eleven-point", playingEleven, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
-  
+
 }

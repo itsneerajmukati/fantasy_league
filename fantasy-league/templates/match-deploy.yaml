@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: match-deploy 
+  labels:
+    appName: match-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: match-svc
+  template:
+    metadata:
+      labels:
+        serviceName: match-svc
+    spec:
+      securityContext:
+      containers:
+        - name: match 
+          securityContext:
+          image: "{{ .Values.match.image.name }}:{{ .Values.match.image.tag}}"
+          command: ["java", "-jar", "/app/app.jar", "--spring.config.location=/app/config/match-service.properties" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.match.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.match.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: match-properties-configmap

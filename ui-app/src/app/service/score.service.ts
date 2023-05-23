@@ -13,18 +13,18 @@ export class ScoreService {
   constructor(private http: HttpClient) { }
 
   getPlayerListByTeamId(matchId : number) {
-    return this.http.get<PlayerMatchPoint[]>("http://localhost:9000/player-service/score/find-by-match?id="+matchId);
+    return this.http.get<PlayerMatchPoint[]>("http://localhost:30081/player-service/score/find-by-match?id="+matchId);
   }
 
   updateUserTeamPlayerPoints(matchId : number) {
-    return this.http.get<string>("http://localhost:9000/player-service/user-team-player/update-players-point?matchId="+matchId);
+    return this.http.get<string>("http://localhost:30081/player-service/user-team-player/update-players-point?matchId="+matchId);
   }
 
   updateUserTeamPoints(matchId : number) {
-    return this.http.get<string>("http://localhost:9000/team-service/user-team/update-team-point?matchId="+matchId);
+    return this.http.get<string>("http://localhost:30081/team-service/user-team/update-team-point?matchId="+matchId);
   }
 
-  
+
 
   saveScore(score : Score) {
     const httpOptions = {
@@ -32,7 +32,7 @@ export class ScoreService {
         'Content-Type':'application/json'
       })
     };
-    return this.http.post<string>("http://localhost:9000/player-service/score/calculate-point", score, httpOptions)
+    return this.http.post<string>("http://localhost:30081/player-service/score/calculate-point", score, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

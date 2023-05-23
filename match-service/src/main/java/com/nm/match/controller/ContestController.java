@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.QueryParam;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nm.commonpojo.entities.Contest;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,7 +40,7 @@ public class ContestController {
 
     @GetMapping("/find-by-match")
     @JsonView(Views.Public.class)
-    public List<Contest> findByMatchId(@QueryParam("matchId") Integer matchId) {
+    public List<Contest> findByMatchId(@RequestParam("matchId") Integer matchId) {
         return contestService.findByMatchId(matchId);
     }
 
@@ -51,12 +51,12 @@ public class ContestController {
 
     @GetMapping("/find-by-contest")
     @JsonView(Views.Public.class)
-    public List<ContestTeams> findContestTeamsByContest(@QueryParam("contestId") Integer contestId) {
+    public List<ContestTeams> findContestTeamsByContest(@RequestParam("contestId") Integer contestId) {
         return contestService.findContestTeamsByContestId(contestId);
     }
 
     @GetMapping("/update-rank")
-    public Map<String,String> updateRankByContestId(@QueryParam("contestId") Integer contestId) {
+    public Map<String,String> updateRankByContestId(@RequestParam("contestId") Integer contestId) {
         contestService.updateRankByContestId(contestId);
         Map<String,String> map = new HashMap<>();
         map.put("status", "success");

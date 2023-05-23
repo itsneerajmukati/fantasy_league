@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deploy 
+  labels:
+    appName: user-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: user-svc
+  template:
+    metadata:
+      labels:
+        serviceName: user-svc
+    spec:
+      securityContext:
+      containers:
+        - name: user 
+          securityContext:
+          image: "{{ .Values.user.image.name }}:{{ .Values.user.image.tag}}"
+          command: ["java", "-jar", "/app/app.jar", "--spring.config.location=/app/config/user-service.properties" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.user.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.user.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: user-properties-configmap

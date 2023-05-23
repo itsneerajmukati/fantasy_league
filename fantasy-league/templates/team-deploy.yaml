@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team-deploy 
+  labels:
+    appName: team-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: team-svc
+  template:
+    metadata:
+      labels:
+        serviceName: team-svc
+    spec:
+      securityContext:
+      containers:
+        - name: team 
+          securityContext:
+          image: "{{ .Values.team.image.name }}:{{ .Values.team.image.tag}}"
+          command: ["java", "-jar", "/app/app.jar", "--spring.config.location=/app/config/team-service.properties" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.team.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.team.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: team-properties-configmap

@@ -13,11 +13,11 @@ export class MatchService {
   constructor(private http: HttpClient) { }
 
   getMatchList() {
-    return this.http.get<Match[]>("http://localhost:9000/match-service/match/find-all");
+    return this.http.get<Match[]>("http://localhost:30081/match-service/match/find-all");
   }
 
   getMatchById(matchId : number) {
-    return this.http.get<Match>("http://localhost:9000/match-service/match/find-by-id?matchId="+matchId);
+    return this.http.get<Match>("http://localhost:30081/match-service/match/find-by-id?matchId="+matchId);
   }
 
   addMatch(match: Match): Observable<Match> {
@@ -28,7 +28,7 @@ export class MatchService {
 
     console.log("in match service", httpOptions)
     console.log("in match service", match)
-    return this.http.post<Match>("http://localhost:9000/match-service/match/create", match, httpOptions)
+    return this.http.post<Match>("http://localhost:30081/match-service/match/create", match, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

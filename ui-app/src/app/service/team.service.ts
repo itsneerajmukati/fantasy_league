@@ -15,15 +15,15 @@ export class TeamService {
   constructor(private http: HttpClient) { }
 
   getTeamList() {
-    return this.http.get<Team[]>("http://localhost:9000/team-service/sport-team/findAll");
+    return this.http.get<Team[]>("http://localhost:30081/team-service/sport-team/findAll");
   }
 
   getTeamById(id : number) {
-    return this.http.get<Team>("http://localhost:9000/team-service/sport-team/find-by-id?id="+ id);
+    return this.http.get<Team>("http://localhost:30081/team-service/sport-team/find-by-id?id="+ id);
   }
 
   getUserTeamList(matchId: number) {
-    return this.http.get<UserTeam[]>("http://localhost:9000/team-service/user-team/by-match-id?matchId="+matchId+"&userId="+Constant.user.id);
+    return this.http.get<UserTeam[]>("http://localhost:30081/team-service/user-team/by-match-id?matchId="+matchId+"&userId="+Constant.user.id);
   }
 
   createUserTeam(userTeam : UserTeam) : Promise<UserTeam> {
@@ -33,7 +33,7 @@ export class TeamService {
       })
     };
 
-    return this.http.post<UserTeam>("http://localhost:9000/team-service/user-team/create", userTeam, httpOptions).toPromise();
+    return this.http.post<UserTeam>("http://localhost:30081/team-service/user-team/create", userTeam, httpOptions).toPromise();
 
   }
 
@@ -44,7 +44,7 @@ export class TeamService {
       })
     };
 
-    return this.http.post<UserTeamPlayer[]>("http://localhost:9000/player-service/user-team-player/create-bulk", userTeamPlayers, httpOptions).toPromise();
+    return this.http.post<UserTeamPlayer[]>("http://localhost:30081/player-service/user-team-player/create-bulk", userTeamPlayers, httpOptions).toPromise();
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -69,10 +69,10 @@ export class TeamService {
     };
     httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json');
 
-    return this.http.post<Team>("http://localhost:9000/team-service/sport-team/create", team, httpOptions)
+    return this.http.post<Team>("http://localhost:30081/team-service/sport-team/create", team, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
-  
+
 }

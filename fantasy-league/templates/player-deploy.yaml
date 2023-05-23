@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-deploy 
+  labels:
+    appName: player-deploy
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      serviceName: player-svc
+  template:
+    metadata:
+      labels:
+        serviceName: player-svc
+    spec:
+      securityContext:
+      containers:
+        - name: player 
+          securityContext:
+          image: "{{ .Values.player.image.name }}:{{ .Values.player.image.tag}}"
+          command: ["java", "-jar", "/app/app.jar", "--spring.config.location=/app/config/player-service.properties" ]
+          #command: ["sleep", "36000"] 
+          imagePullPolicy: {{ .Values.player.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.player.port }}
+              protocol: TCP
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: player-properties-configmap

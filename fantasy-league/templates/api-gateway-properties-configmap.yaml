@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  api-gateway.properties: |-
+    server.port=9000
+    spring.application.name=api-gateway
+
+    spring.cloud.gateway.routes[0].id=user-service
+    spring.cloud.gateway.routes[0].uri=http://user-svc:8081/
+    spring.cloud.gateway.routes[0].predicates[0]=Path=/user-service/**
+    
+    spring.cloud.gateway.routes[1].id=team-service
+    spring.cloud.gateway.routes[1].uri=http://team-svc:8082/
+    spring.cloud.gateway.routes[1].predicates[0]=Path=/team-service/**
+    
+    spring.cloud.gateway.routes[2].id=player-service
+    spring.cloud.gateway.routes[2].uri=http://player-svc:8083/
+    spring.cloud.gateway.routes[2].predicates[0]=Path=/player-service/**
+    
+    spring.cloud.gateway.routes[3].id=match-service
+    spring.cloud.gateway.routes[3].uri=http://match-svc:8084/
+    spring.cloud.gateway.routes[3].predicates[0]=Path=/match-service/**
+    
+    spring.cloud.gateway.routes[4].id=ui-service
+    spring.cloud.gateway.routes[4].uri=http://ui-svc:4200/
+    spring.cloud.gateway.routes[4].predicates[0]=Path=/**
+
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: api-gateway-properties-configmap

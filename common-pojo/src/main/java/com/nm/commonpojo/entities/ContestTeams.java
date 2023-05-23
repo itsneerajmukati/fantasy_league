@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Column;
 
 @Entity
 @Table(name = "contest_team")
@@ -25,6 +26,7 @@ public class ContestTeams {
     @JoinColumn(name="team_id")
     private UserTeam userTeam;
     
+    @Column(name="team_rank")
     private Integer rank;
 
     public Integer getId() {
