@@ -1,3 +1,4 @@
+docker build -t jre:1.0 -f Dockerfile .
 cd user-service
 docker build -t user-service:1.0 -f Dockerfile.user .
 cd ../team-service
